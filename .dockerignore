@@ -1,0 +1,10 @@
+docker/Dockerfile*
+.gitignore
+.dockerignore
+.coverage
+.cache
+.mypy_cache
+.pytest_cache
+.git/
+data/
+input/

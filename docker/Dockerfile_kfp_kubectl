@@ -1,0 +1,17 @@
+FROM debian:stretch-slim
+
+RUN apt-get update -q && \
+    apt-get upgrade -y && \
+    apt-get install -y -qq --no-install-recommends \
+      apt-transport-https \
+      ca-certificates \
+      wget
+RUN wget -O /bin/kubectl \
+      https://storage.googleapis.com/kubernetes-release/release/v1.11.2/bin/linux/amd64/kubectl && \
+    chmod u+x /bin/kubectl
+
+COPY docker/set_kubectl.sh /src/set_kubectl.sh
+WORKDIR /src
+
+CMD /src/set_kubectl.sh
+
