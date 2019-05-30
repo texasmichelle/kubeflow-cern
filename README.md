@@ -27,6 +27,7 @@ From the Kubeflow central dashboard, click on Notebooks and spawn a new
 instance. Use all defaults except for the following parameters:
 
 CPU: 2
+
 Memory: 12.0Gi
 
 When the notebook instance is ready, click Connect and open a new Terminal. Run
@@ -64,15 +65,16 @@ for use on Kubeflow v0.5.0, and open the notebook.
 ### Build docker images
 
 Each step in a pipeline references a container image. Build the necessary docker
-image with this command:
+images with these commands:
 
 ```
 docker/build.sh kfp_kubectl
+docker/build.sh trackml
 ```
 
 ### Compile the pipeline
 
-In a local Terminal of Cloud Shell, install the Kubeflow pipelines python SDK by
+In a local Terminal or Cloud Shell, install the Kubeflow pipelines python SDK by
 running this command:
 
 ```
@@ -88,7 +90,7 @@ pipelines/trackml.py
 ### Upload and run the pipeline
 
 From the Kubeflow central dashboard, click on Pipeline Dashboard, then Upload
-pipeline. Select the file you just created (trackml.py.tar.gz) and then Upload.
+pipeline. Select the file you just created (`trackml.py.tar.gz`) and then Upload.
 
 Run the pipeline by first creating an experiment, then a run.
 

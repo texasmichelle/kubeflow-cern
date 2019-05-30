@@ -1,0 +1,29 @@
+FROM python:3.6
+
+COPY requirements.txt /trackml/src/
+WORKDIR /trackml/src
+
+RUN pip install -r requirements.txt --upgrade
+
+RUN git clone https://github.com/LAL/trackml-library.git
+RUN pip install ./trackml-library
+
+# Install gcloud SDK
+RUN wget -nv https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip && \
+    unzip -qq google-cloud-sdk.zip -d /tools && \
+    rm google-cloud-sdk.zip && \
+    /tools/google-cloud-sdk/install.sh --usage-reporting=false \
+        --path-update=false --bash-completion=false \
+        --disable-installation-options && \
+    /tools/google-cloud-sdk/bin/gcloud -q components update \
+        gcloud core gsutil && \
+    /tools/google-cloud-sdk/bin/gcloud config set component_manager/disable_update_check true && \
+    touch /tools/google-cloud-sdk/lib/third_party/google.py
+
+ENV PATH $PATH:/tools/node/bin:/tools/google-cloud-sdk/bin
+
+COPY bin /trackml/bin
+WORKDIR /trackml/bin
+
+CMD /trackml/bin/train.py
+

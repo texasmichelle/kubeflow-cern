@@ -6,11 +6,11 @@ import kfp.gcp as gcp
 # Pipeline input variables.
 KUBECTL_IMAGE = "gcr.io/mcas-195423/trackml_master_kfp_kubectl"
 KUBECTL_IMAGE_VERSION = "1"
-TRACKML_TRAIN_IMAGE = "gcr.io/mcas-195423/trackml_master_train"
+TRACKML_TRAIN_IMAGE = "gcr.io/mcas-195423/trackml_master_trackml"
 TRACKML_TRAIN_VERSION = "1"
-TRACKML_RESULTSGEN_IMAGE = "gcr.io/mcas-195423/trackml_master_resultsgen"
+TRACKML_RESULTSGEN_IMAGE = "gcr.io/mcas-195423/trackml_master_trackml"
 TRACKML_RESULTSGEN_VERSION = "1"
-TRACKML_SCORE_IMAGE = "gcr.io/mcas-195423/trackml_master_score"
+TRACKML_SCORE_IMAGE = "gcr.io/mcas-195423/trackml_master_trackml"
 TRACKML_SCORE_VERSION = "1"
 
 def train_op():
@@ -55,11 +55,12 @@ def score_op():
 def trackml():
   train = train_op()
 
-  serve = serve_op()
-  serve.after(train)
+#  serve = serve_op()
+#  serve.after(train)
 
   resultsgen = resultsgen_op()
-  resultsgen.after(serve)
+#  resultsgen.after(serve)
+  resultsgen.after(train)
 
   score = score_op()
   score.after(resultsgen)
