@@ -24,5 +24,8 @@ shuffled = shuffle_hits(truth, 0.05) # 5% probability to reassign a hit
 
 print(shuffled.head())
 
-# TODO: write shuffled to an artifact
-
+outdir = "/trackml/output"
+if not os.path.exists(outdir):
+    os.mkdir(outdir)
+fullpath = os.path.join(outdir, "shuffled.csv")
+shuffled.to_csv(fullpath)

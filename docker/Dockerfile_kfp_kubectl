@@ -11,6 +11,7 @@ RUN wget -O /bin/kubectl \
     chmod u+x /bin/kubectl
 
 COPY docker/set_kubectl.sh /src/set_kubectl.sh
+COPY k8s/* /src/k8s/
 WORKDIR /src
 
 CMD /src/set_kubectl.sh

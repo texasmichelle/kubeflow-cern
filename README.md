@@ -3,6 +3,7 @@
 1. Create a cluster and install Kubeflow
 1. Run a notebook
 1. Run a pipeline
+1. Run hyperparameter tuning
 
 ## Create a cluster and install Kubeflow
 
@@ -93,4 +94,12 @@ From the Kubeflow central dashboard, click on Pipeline Dashboard, then Upload
 pipeline. Select the file you just created (`trackml.py.tar.gz`) and then Upload.
 
 Run the pipeline by first creating an experiment, then a run.
+
+## Run hyperparameter tuning
+
+Run the gpu-example on the cluster with this command:
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubeflow/katib/master/examples/v1alpha1/gpu-example.yaml
+```
 

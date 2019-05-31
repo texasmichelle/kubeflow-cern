@@ -40,14 +40,6 @@ def resultsgen_op():
     arguments=["resultsgen.py"],
   ).apply(gcp.use_gcp_secret())
 
-def score_op():
-  return dsl.ContainerOp(
-    name='score',
-    image="{}:{}".format(TRACKML_RESULTSGEN_IMAGE, TRACKML_RESULTSGEN_VERSION),
-    command=["python"],
-    arguments=["score.py"],
-  ).apply(gcp.use_gcp_secret())
-
 @dsl.pipeline(
   name='trackml',
   description='A pipeline that predicts particle tracks'
@@ -55,15 +47,11 @@ def score_op():
 def trackml():
   train = train_op()
 
-#  serve = serve_op()
-#  serve.after(train)
+  serve = serve_op()
+  serve.after(train)
 
   resultsgen = resultsgen_op()
-#  resultsgen.after(serve)
-  resultsgen.after(train)
-
-  score = score_op()
-  score.after(resultsgen)
+  resultsgen.after(serve)
 
 if __name__ == '__main__':
   import kfp.compiler as compiler
