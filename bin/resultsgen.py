@@ -20,11 +20,16 @@ hits, cells, particles, truth = load_event(os.path.join('/trackml/input/train_10
 
 shuffled = shuffle_hits(truth, 0.05) # 5% probability to reassign a hit
 
-print(shuffled.head(1000))
+print(shuffled.head(10))
 
 outdir = "/trackml/output"
 if not os.path.exists(outdir):
     os.mkdir(outdir)
 fullpath = os.path.join(outdir, "shuffled.csv")
 shuffled.to_csv(fullpath)
+
+# Save file to GCS
+command = ['./write_results.sh']
+result = subprocess.call(command)
+print(command, " result: ", result)
 

@@ -114,3 +114,6 @@ Run the gpu-example on the cluster with this command:
 kubectl apply -f https://raw.githubusercontent.com/kubeflow/katib/master/examples/v1alpha1/gpu-example.yaml
 ```
 
+Observe auto-provisioning spin up 2 extra GPU nodes (5 total: 2 CPU, 3 GPU).
+
+
