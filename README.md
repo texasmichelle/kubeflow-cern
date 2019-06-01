@@ -95,6 +95,17 @@ pipeline. Select the file you just created (`trackml.py.tar.gz`) and then Upload
 
 Run the pipeline by first creating an experiment, then a run.
 
+### Run the pipeline from a notebook
+
+From the Kubeflow central dashboard, click on Notebooks, then Upload the file
+`notebooks/trackml-pipeline.ipynb`.
+
+Run the notebook and click on the resulting links to view the pipeline
+executing.
+
+Run once more, requesting GPU resources and watch auto-provisioning add a GPU
+node to the cluster before executing training.
+
 ## Run hyperparameter tuning
 
 Run the gpu-example on the cluster with this command:
