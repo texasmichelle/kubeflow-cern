@@ -19,7 +19,8 @@ def train_op():
     image="{}:{}".format(TRACKML_TRAIN_IMAGE, TRACKML_TRAIN_VERSION),
     command=["python"],
     arguments=["train.py"],
-  ).apply(gcp.use_gcp_secret())
+  ).apply(gcp.use_gcp_secret()
+  ).set_gpu_limit(1)
 
 def serve_op():
   return dsl.ContainerOp(
