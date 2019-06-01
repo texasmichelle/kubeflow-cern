@@ -6,21 +6,17 @@ import kfp.gcp as gcp
 # Pipeline input variables.
 KUBECTL_IMAGE = "gcr.io/mcas-195423/trackml_master_kfp_kubectl"
 KUBECTL_IMAGE_VERSION = "1"
-TRACKML_TRAIN_IMAGE = "gcr.io/mcas-195423/trackml_master_trackml"
-TRACKML_TRAIN_VERSION = "1"
-TRACKML_RESULTSGEN_IMAGE = "gcr.io/mcas-195423/trackml_master_trackml"
-TRACKML_RESULTSGEN_VERSION = "1"
-TRACKML_SCORE_IMAGE = "gcr.io/mcas-195423/trackml_master_trackml"
-TRACKML_SCORE_VERSION = "1"
+TRACKML_IMAGE = "gcr.io/mcas-195423/trackml_master_trackml"
+TRACKML_IMAGE_VERSION = "1"
 
 def train_op():
   return dsl.ContainerOp(
     name='train',
-    image="{}:{}".format(TRACKML_TRAIN_IMAGE, TRACKML_TRAIN_VERSION),
+    image="{}:{}".format(TRACKML_IMAGE, TRACKML_IMAGE_VERSION),
     command=["python"],
     arguments=["train.py"],
   ).apply(gcp.use_gcp_secret()
-  ).set_gpu_limit(1)
+  )#.set_gpu_limit(1)
 
 def serve_op():
   return dsl.ContainerOp(
@@ -36,7 +32,7 @@ def serve_op():
 def resultsgen_op():
   return dsl.ContainerOp(
     name='resultsgen',
-    image="{}:{}".format(TRACKML_RESULTSGEN_IMAGE, TRACKML_RESULTSGEN_VERSION),
+    image="{}:{}".format(TRACKML_IMAGE, TRACKML_IMAGE_VERSION),
     command=["python"],
     arguments=["resultsgen.py"],
   ).apply(gcp.use_gcp_secret())
