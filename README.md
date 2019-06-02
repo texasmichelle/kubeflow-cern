@@ -15,6 +15,7 @@ dashboard, enable auto-provisioning with the following command:
 
 ```
 gcloud beta container clusters update kubeflow \
+  --zone europe-west1-b \
   --enable-autoprovisioning \
   --max-cpu 128 \
   --max-memory 1120 \
@@ -85,7 +86,8 @@ pip install -U kfp
 Compile a pipeline by running it directly:
 
 ```
-pipelines/trackml.py
+curl -O https://raw.githubusercontent.com/texasmichelle/kubeflow-cern/master/pipelines/trackml.py
+./trackml.py
 ```
 
 ### Upload and run the pipeline
