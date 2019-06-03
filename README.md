@@ -1,5 +1,10 @@
 # TrackML at CERN
 
+Author: Michelle Casbon
+
+An example of LHC data on Kubeflow based on the Kaggle [TrackML Particle
+Tracking Challenge](https://www.kaggle.com/c/trackml-particle-identification/overview).
+
 1. Create a cluster and install Kubeflow
 1. Run a notebook
 1. Run a pipeline
